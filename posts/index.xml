@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Pystyy vetää</title>
+    <link>/posts/</link>
+    <description>Recent content in Posts on Pystyy vetää</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 03 Feb 2019 16:19:00 +0200</lastBuildDate>
+    
+	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Writeup: nullcon HackIM 2019 - 2FUN</title>
+      <link>/posts/writeup-nullcon-2019-2fun/</link>
+      <pubDate>Sun, 03 Feb 2019 16:19:00 +0200</pubDate>
+      
+      <guid>/posts/writeup-nullcon-2019-2fun/</guid>
+      <description>Idea of the challenge was to use Meet-in-the-middle attack.
+Basically instead of trying all combinations of 48-bit keys, we generate all possible outputs from encryption function with 24-bit key and plaintext 16 bit plaintext and also generate all possible outputs from decryption function with 24-bit key and ciphertext \x04\x67\xa5\x2a\xfa\x8f\x15\xcf\xb8\xf0\xea\x40\x36\x5a\x66\x92.
+We then try to find equal output from the collection of the encrypted output and from the decrypted output, representating the &amp;ldquo;ct1&amp;rdquo;-variable of the given code.</description>
+    </item>
+    
+    <item>
+      <title>Writeup: nullcon HackIM 2019 - 0bfusc8 Much</title>
+      <link>/posts/writeup-nullcon-2019-0bfusc8-much/</link>
+      <pubDate>Sun, 03 Feb 2019 16:00:30 +0200</pubDate>
+      
+      <guid>/posts/writeup-nullcon-2019-0bfusc8-much/</guid>
+      <description>Writeup of reverse engineering challenge &amp;ldquo;0bfusc8 Much&amp;rdquo;.
+Check it out at Tommi&amp;rsquo;s site: https://www.rouvali.com/?page_id=205</description>
+    </item>
+    
+    <item>
+      <title>Intro</title>
+      <link>/posts/intro/</link>
+      <pubDate>Sun, 03 Feb 2019 14:30:50 +0200</pubDate>
+      
+      <guid>/posts/intro/</guid>
+      <description>&amp;ldquo;Pystyy vetää&amp;rdquo; is an open CTF team, welcoming all skill levels from complete beginner to a seasoned CTF veteran. We&amp;rsquo;re aiming to learn new things and have fun while doing so!
+As for the name, &amp;ldquo;Pystyy vetää&amp;rdquo; == &amp;ldquo;You can do it&amp;rdquo; &amp;amp;&amp;amp; &amp;ldquo;Don&amp;rsquo;t give up&amp;rdquo;
+Pystyy vetää is a TurkuSec project.</description>
+    </item>
+    
+  </channel>
+</rss>
